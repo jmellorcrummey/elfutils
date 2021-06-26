@@ -8825,7 +8825,13 @@ print_debug_line_section (Dwfl_Module *dwflmod, Ebl *ebl, GElf_Ehdr *ehdr,
 		goto invalid_unit;
 
 	      /* The length.  */
-	      unsigned int len = *linep++;
+	      unsigned int len;
+	      get_uleb128 (len, linep, lineendp);
+
+	      if (unlikely (len == 0)) {
+		puts (gettext (" empty extended opcode"));
+		continue;
+	      }
 
 	      if (unlikely (linep + len > lineendp))
 		goto invalid_unit;
