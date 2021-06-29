@@ -8481,6 +8481,7 @@ print_debug_line_section (Dwfl_Module *dwflmod, Ebl *ebl, GElf_Ehdr *ehdr,
 	    goto invalid_data;
 	  header_length = read_8ubyte_unaligned_inc (dbg, linep);
 	}
+      const unsigned char *header_start = linep;
 
       /* Next the minimum instruction length.  */
       if ((size_t) (lineendp - linep) < 1)
@@ -8765,6 +8766,14 @@ print_debug_line_section (Dwfl_Module *dwflmod, Ebl *ebl, GElf_Ehdr *ehdr,
 	  ++linep;
 	}
 
+#ifdef NVIDIA_LINEMAP_INLINING_EXTENSIONS
+      unsigned int debug_str_offset __attribute__((unused)) = 0; 
+      if (unlikely (linep < header_start + header_length)) {
+	/* CUBINs contain an unsigned 4-byte offset */
+	debug_str_offset = read_4ubyte_unaligned_inc (dbg, linep);
+      }
+#endif /* NVIDIA_LINEMAP_INLINING_EXTENSIONS */
+
       if (linep == lineendp)
 	{
 	  puts (_("\nNo line number statements."));
@@ -8912,6 +8921,38 @@ print_debug_line_section (Dwfl_Module *dwflmod, Ebl *ebl, GElf_Ehdr *ehdr,
 		  get_uleb128 (u128, linep, lineendp);
 		  printf (_(" set discriminator to %u\n"), u128);
 		  break;
+
+#ifdef NVIDIA_LINEMAP_INLINING_EXTENSIONS
+		case DW_LNE_inlined_call:
+		  {
+
+		    if (unlikely (linep >= lineendp))
+		      goto invalid_data;
+
+		    unsigned int context;
+		    get_uleb128 (context, linep, lineendp);
+
+		    if (unlikely (linep >= lineendp))
+		      goto invalid_data;
+
+		    unsigned int function_name;
+		    get_uleb128 (function_name, linep, lineendp);
+
+		    printf (_(" inlined context %u, function name 0x%x \n"), context,
+			    function_name);
+		    break;
+		  }
+
+		case DW_LNE_set_function_name:
+		  if (unlikely (linep >= lineendp))
+		    goto invalid_data;
+
+		  unsigned int function_name;
+		  get_uleb128 (function_name, linep, lineendp);
+
+		  printf (_(" set function name %u\n"), function_name);
+		  break;
+#endif /* NVIDIA_LINEMAP_INLINING_EXTENSIONS */
 
 		default:
 		  /* Unknown, ignore it.  */
