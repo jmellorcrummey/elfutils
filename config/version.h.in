@@ -35,4 +35,6 @@
 #define _ELFUTILS_PREREQ(major, minor) \
   (_ELFUTILS_VERSION >= ((major) * 1000 + (minor)))
 
+@NVLINEMAP@
+
 #endif	/* elfutils/version.h */
