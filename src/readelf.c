@@ -8925,7 +8925,6 @@ print_debug_line_section (Dwfl_Module *dwflmod, Ebl *ebl, GElf_Ehdr *ehdr,
 #ifdef NVIDIA_LINEMAP_INLINING_EXTENSIONS
 		case DW_LNE_inlined_call:
 		  {
-
 		    if (unlikely (linep >= lineendp))
 		      goto invalid_data;
 

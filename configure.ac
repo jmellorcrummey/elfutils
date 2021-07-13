@@ -807,7 +807,6 @@ case $use_nvlinemap in
 esac
 AC_SUBST([NVLINEMAP], $use_nvlinemap_val)
 
-
 AC_OUTPUT
 
 AC_MSG_NOTICE([

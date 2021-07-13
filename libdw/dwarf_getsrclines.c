@@ -35,8 +35,6 @@
 #include <string.h>
 #include <search.h>
 
-#include <stdio.h>
-
 #include "dwarf.h"
 #include "libdwP.h"
 
