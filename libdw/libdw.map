@@ -67,8 +67,10 @@ ELFUTILS_0.122 {
     dwarf_linebeginstatement;
     dwarf_lineblock;
     dwarf_linecol;
+    dwarf_linecontext;
     dwarf_lineendsequence;
     dwarf_lineepiloguebegin;
+    dwarf_linefunctionname;
     dwarf_lineno;
     dwarf_lineprologueend;
     dwarf_linesrc;

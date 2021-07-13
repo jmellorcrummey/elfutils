@@ -1,7 +1,7 @@
-/* Version information about elfutils development libraries.
-   Copyright (C) 2008 Red Hat, Inc.
-
+/* Return column in line.
+   Copyright (C) 2004 Red Hat, Inc.
    This file is part of elfutils.
+   Written by Ulrich Drepper <drepper@redhat.com>, 2004.
 
    This file is free software; you can redistribute it and/or modify
    it under the terms of either
@@ -27,14 +27,22 @@
    the GNU Lesser General Public License along with this program.  If
    not, see <http://www.gnu.org/licenses/>.  */
 
-#ifndef _ELFUTILS_VERSION_H
-#define _ELFUTILS_VERSION_H	1
+#ifdef HAVE_CONFIG_H
+# include <config.h>
+#endif
 
-#define _ELFUTILS_VERSION	@eu_version@
+#include "libdwP.h"
 
-#define _ELFUTILS_PREREQ(major, minor) \
-  (_ELFUTILS_VERSION >= ((major) * 1000 + (minor)))
 
-@NVLINEMAP@
+#ifdef NVIDIA_LINEMAP_INLINING_EXTENSIONS
+int
+dwarf_linefunctionname (Dwarf_Line *line, unsigned int *functionnamep)
+{
+  if (line == NULL)
+    return -1;
 
-#endif	/* elfutils/version.h */
+  *functionnamep =  line->function_name;
+
+  return 0;
+}
+#endif /* NVIDIA_LINEMAP_INLINING_EXTENSIONS */

@@ -844,6 +844,10 @@ enum
     DW_LNE_set_discriminator = 4,
 
     DW_LNE_lo_user = 128,
+    /* Begin  NVIDIA_LINEMAP_INLINING_EXTENSIONS */
+    DW_LNE_inlined_call = 144,
+    DW_LNE_set_function_name = 145,
+    /* End  NVIDIA_LINEMAP_INLINING_EXTENSIONS */
     DW_LNE_hi_user = 255
   };
 
