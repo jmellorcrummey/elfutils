@@ -8481,7 +8481,9 @@ print_debug_line_section (Dwfl_Module *dwflmod, Ebl *ebl, GElf_Ehdr *ehdr,
 	    goto invalid_data;
 	  header_length = read_8ubyte_unaligned_inc (dbg, linep);
 	}
+#ifdef NVIDIA_LINEMAP_INLINING_EXTENSIONS
       const unsigned char *header_start = linep;
+#endif /* NVIDIA_LINEMAP_INLINING_EXTENSIONS */
 
       /* Next the minimum instruction length.  */
       if ((size_t) (lineendp - linep) < 1)
