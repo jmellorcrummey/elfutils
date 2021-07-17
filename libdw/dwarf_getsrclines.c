@@ -870,12 +870,14 @@ read_srclines (Dwarf *dbg,
 	      if (unlikely (linep >= lineendp))
 		goto invalid_data;
 	      get_uleb128 (state.function_name, linep, lineendp);
+	      state.function_name += debug_str_offset;
 	      break;
 
 	    case DW_LNE_set_function_name:
 	      if (unlikely (linep >= lineendp))
 		goto invalid_data;
 	      get_uleb128 (state.function_name, linep, lineendp);
+	      state.function_name += debug_str_offset;
 	      break;
 #endif /* NVIDIA_LINEMAP_INLINING_EXTENSIONS */
 

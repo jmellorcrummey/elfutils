@@ -8938,20 +8938,24 @@ print_debug_line_section (Dwfl_Module *dwflmod, Ebl *ebl, GElf_Ehdr *ehdr,
 
 		    unsigned int function_name;
 		    get_uleb128 (function_name, linep, lineendp);
+		    function_name += debug_str_offset;
 
-		    printf (_(" inlined context %u, function name 0x%x \n"), context,
-			    function_name);
+		    printf (_(" inlined context %u, function name 0x%x \n"),
+			    context, function_name);
 		    break;
 		  }
 
 		case DW_LNE_set_function_name:
-		  if (unlikely (linep >= lineendp))
-		    goto invalid_data;
+		  {
+		    if (unlikely (linep >= lineendp))
+		      goto invalid_data;
+		    
+		    unsigned int function_name;
+		    get_uleb128 (function_name, linep, lineendp);
+		    function_name += debug_str_offset;
 
-		  unsigned int function_name;
-		  get_uleb128 (function_name, linep, lineendp);
-
-		  printf (_(" set function name %u\n"), function_name);
+		    printf (_(" set function name %u\n"), function_name);
+		  }
 		  break;
 #endif /* NVIDIA_LINEMAP_INLINING_EXTENSIONS */
 
