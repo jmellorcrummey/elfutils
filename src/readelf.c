@@ -8769,7 +8769,7 @@ print_debug_line_section (Dwfl_Module *dwflmod, Ebl *ebl, GElf_Ehdr *ehdr,
 	}
 
 #ifdef NVIDIA_LINEMAP_INLINING_EXTENSIONS
-      unsigned int debug_str_offset __attribute__((unused)) = 0; 
+      unsigned int debug_str_offset __attribute__((unused)) = 0;
       if (unlikely (linep < header_start + header_length)) {
 	/* CUBINs contain an unsigned 4-byte offset */
 	debug_str_offset = read_4ubyte_unaligned_inc (dbg, linep);
@@ -8949,7 +8949,7 @@ print_debug_line_section (Dwfl_Module *dwflmod, Ebl *ebl, GElf_Ehdr *ehdr,
 		  {
 		    if (unlikely (linep >= lineendp))
 		      goto invalid_data;
-		    
+
 		    unsigned int function_name;
 		    get_uleb128 (function_name, linep, lineendp);
 		    function_name += debug_str_offset;

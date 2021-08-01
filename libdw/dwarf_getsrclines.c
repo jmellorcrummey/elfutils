@@ -176,7 +176,7 @@ read_srclines (Dwarf *dbg,
 #ifdef NVIDIA_LINEMAP_INLINING_EXTENSIONS
   /* reduce the MAX_STACK_LINES when using NVIDIA linemap inlining extensions, which
      increase the size of the line structure by two unsigned int */
-#undef MAX_STACK_LINES 
+#undef MAX_STACK_LINES
 #define MAX_STACK_LINES (MAX_STACK_ALLOC / 2)
 #endif /* NVIDIA_LINEMAP_INLINING_EXTENSIONS */
 
@@ -668,7 +668,7 @@ read_srclines (Dwarf *dbg,
     }
 
 #ifdef NVIDIA_LINEMAP_INLINING_EXTENSIONS
-  unsigned int debug_str_offset __attribute__((unused)) = 0; 
+  unsigned int debug_str_offset __attribute__((unused)) = 0;
   if (unlikely (linep < header_start + header_length)) {
       /* CUBINs contain an unsigned 4-byte offset */
       debug_str_offset = read_4ubyte_unaligned_inc (dbg, linep);
