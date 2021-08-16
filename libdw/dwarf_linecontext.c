@@ -1,7 +1,6 @@
-/* Return column in line.
-   Copyright (C) 2004 Red Hat, Inc.
+/* Return context in line.
    This file is part of elfutils.
-   Written by Ulrich Drepper <drepper@redhat.com>, 2004.
+   Written by John Mellor-Crummey <johnmc@rice.edu>, 2021.
 
    This file is free software; you can redistribute it and/or modify
    it under the terms of either
