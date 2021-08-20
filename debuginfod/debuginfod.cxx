@@ -2102,6 +2102,13 @@ handler_cb (void * /*cls*/,
     }
   *ptr = NULL;                     /* reset when done */
   
+  const char *maxsize_string = MHD_lookup_connection_value(connection, MHD_HEADER_KIND, "X-DEBUGINFOD-MAXSIZE");
+  long maxsize = 0;
+  if (maxsize_string != NULL && maxsize_string[0] != '\0')
+    maxsize = atol(maxsize_string);
+  else
+    maxsize = 0;
+
 #if MHD_VERSION >= 0x00097002
   enum MHD_Result rc;
 #else
@@ -2134,7 +2141,7 @@ handler_cb (void * /*cls*/,
           struct timespec tsay_start, tsay_end;
           clock_gettime (CLOCK_MONOTONIC, &tsay_start);
           static unique_set<string> busy_urls;
-          unique_set_reserver<string> after_you(busy_urls, url1);
+          unique_set_reserver<string> after_you(busy_urls, url_copy);
           clock_gettime (CLOCK_MONOTONIC, &tsay_end);
           afteryou = (tsay_end.tv_sec - tsay_start.tv_sec) + (tsay_end.tv_nsec - tsay_start.tv_nsec)/1.e9;
           add_metric ("thread_busy", "role", "http-buildid-after-you", -1);
@@ -2189,6 +2196,12 @@ handler_cb (void * /*cls*/,
 
       if (r == 0)
         throw reportable_exception("internal error, missing response");
+
+      if (maxsize > 0 && http_size > maxsize)
+        {
+          MHD_destroy_response(r);
+          throw reportable_exception(406, "File too large, max size=" + std::to_string(maxsize));
+        }
 
       rc = MHD_queue_response (connection, MHD_HTTP_OK, r);
       http_code = MHD_HTTP_OK;
