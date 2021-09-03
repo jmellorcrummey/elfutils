@@ -29,8 +29,9 @@
 #ifndef LIB_SYSTEM_H
 #define LIB_SYSTEM_H	1
 
+#include <config.h>
+
 #include <errno.h>
-#include <error.h>
 #include <stddef.h>
 #include <stdint.h>
 #include <sys/param.h>
@@ -38,7 +39,17 @@
 #include <byteswap.h>
 #include <unistd.h>
 #include <string.h>
+#include <stdarg.h>
 #include <stdlib.h>
+
+#if defined(HAVE_ERROR_H)
+#include <error.h>
+#elif defined(HAVE_ERR_H)
+extern int error_message_count;
+void error(int status, int errnum, const char *format, ...);
+#else
+#error "err.h or error.h must be available"
+#endif
 
 #if __BYTE_ORDER == __LITTLE_ENDIAN
 # define LE32(n)	(n)

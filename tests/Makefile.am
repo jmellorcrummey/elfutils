@@ -211,7 +211,27 @@ if DEBUGINFOD
 check_PROGRAMS += debuginfod_build_id_find
 # With the dummy delegation doesn't work
 if !DUMMY_LIBDEBUGINFOD
-TESTS += run-debuginfod-find.sh
+TESTS += run-debuginfod-dlopen.sh \
+	 run-debuginfod-artifact-running.sh \
+	 run-debuginfod-fd-prefetch-caches.sh \
+	 run-debuginfod-regex.sh \
+	 run-debuginfod-duplicate-urls.sh \
+	 run-debuginfod-file.sh \
+	 run-debuginfod-sizetime.sh \
+	 run-debuginfod-malformed.sh \
+	 run-debuginfod-000-permission.sh \
+	 run-debuginfod-tmp-home.sh \
+	 run-debuginfod-writable.sh \
+	 run-debuginfod-no-urls.sh \
+	 run-debuginfod-query-retry.sh \
+	 run-debuginfod-extraction.sh \
+	 run-debuginfod-archive-groom.sh \
+	 run-debuginfod-archive-rename.sh \
+	 run-debuginfod-archive-test.sh \
+	 run-debuginfod-federation-sqlite.sh \
+	 run-debuginfod-federation-link.sh \
+	 run-debuginfod-federation-metrics.sh \
+	 run-debuginfod-x-forwarded-for.sh
 endif
 endif
 
@@ -280,7 +300,7 @@ EXTRA_DIST = run-arextract.sh run-arsymtest.sh run-ar.sh \
 	     testfile21.bz2 testfile21.index.bz2 \
 	     testfile22.bz2 testfile23.bz2 testfile24.bz2 testfile25.bz2 \
 	     testfile26.bz2 testfile27.bz2 \
-	     coverage.sh test-subr.sh test-wrapper.sh \
+	     coverage.sh test-subr.sh test-wrapper.sh debuginfod-subr.sh \
 	     run-readelf-test1.sh run-readelf-test2.sh run-readelf-test3.sh \
 	     run-readelf-test4.sh run-readelf-twofiles.sh \
 	     run-bug1-test.sh testfile28.bz2 testfile28.rdwr.bz2 \
@@ -474,7 +494,27 @@ EXTRA_DIST = run-arextract.sh run-arsymtest.sh run-ar.sh \
 	     run-elfclassify.sh run-elfclassify-self.sh \
 	     run-disasm-riscv64.sh \
 	     testfile-riscv64-dis1.o.bz2 testfile-riscv64-dis1.expect.bz2 \
-             run-debuginfod-find.sh \
+             run-debuginfod-extraction.sh \
+             run-debuginfod-federation-link.sh \
+             run-debuginfod-federation-metrics.sh \
+             run-debuginfod-artifact-running.sh \
+             run-debuginfod-federation-sqlite.sh \
+             run-debuginfod-x-forwarded-for.sh \
+	     run-debuginfod-fd-prefetch-caches.sh \
+	     run-debuginfod-regex.sh \
+	     run-debuginfod-duplicate-urls.sh \
+	     run-debuginfod-file.sh \
+	     run-debuginfod-sizetime.sh \
+	     run-debuginfod-dlopen.sh \
+	     run-debuginfod-malformed.sh \
+	     run-debuginfod-000-permission.sh \
+	     run-debuginfod-tmp-home.sh \
+	     run-debuginfod-writable.sh \
+	     run-debuginfod-no-urls.sh \
+	     run-debuginfod-query-retry.sh \
+	     run-debuginfod-archive-groom.sh \
+	     run-debuginfod-archive-rename.sh \
+             run-debuginfod-archive-test.sh \
 	     debuginfod-rpms/fedora30/hello2-1.0-2.src.rpm \
 	     debuginfod-rpms/fedora30/hello2-1.0-2.x86_64.rpm \
 	     debuginfod-rpms/fedora30/hello2-debuginfo-1.0-2.x86_64.rpm \
