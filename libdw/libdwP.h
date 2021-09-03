@@ -291,6 +291,10 @@ struct Dwarf_Line_s
   unsigned int op_index:8;
   unsigned int isa:8;
   unsigned int discriminator:24;
+#ifdef NVIDIA_LINEMAP_INLINING_EXTENSIONS
+  unsigned int context;
+  unsigned int function_name;
+#endif /* NVIDIA_LINEMAP_INLINING_EXTENSIONS */
 };
 
 struct Dwarf_Lines_s
