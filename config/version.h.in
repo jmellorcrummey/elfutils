@@ -35,6 +35,6 @@
 #define _ELFUTILS_PREREQ(major, minor) \
   (_ELFUTILS_VERSION >= ((major) * 1000 + (minor)))
 
-@NVLINEMAP@
+#define NVIDIA_LINEMAP_INLINING_EXTENSIONS 1
 
 #endif	/* elfutils/version.h */

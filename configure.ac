@@ -767,16 +767,6 @@ AC_ARG_ENABLE(debuginfod-urls,
 AC_SUBST(DEBUGINFOD_URLS, $default_debuginfod_urls)                
 AC_CONFIG_FILES([config/profile.sh config/profile.csh])
 
-dnl enable nvidia linemap extensions for inlining
-AC_ARG_ENABLE([nvidia-linemap],
-AS_HELP_STRING([--enable-nvidia-linemap],[enable linemap extensions that describe inlining in NVIDIA CUDA binaries]),
-[use_nvlinemap=$enableval], [use_nvlinemap=no])
-case $use_nvlinemap in
- yes) use_nvlinemap_val='#define NVIDIA_LINEMAP_INLINING_EXTENSIONS 1' ;;
- *)   use_nvlinemap_val= ;;
-esac
-AC_SUBST([NVLINEMAP], $use_nvlinemap_val)
-
 AC_OUTPUT
 
 AC_MSG_NOTICE([
