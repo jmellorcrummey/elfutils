@@ -93,10 +93,10 @@ struct line_state
   struct linelist *linelist;
   size_t nlinelist;
   unsigned int end_sequence;
-#ifdef NVIDIA_LINEMAP_INLINING_EXTENSIONS
+/* Begin NVIDIA_LINEMAP_INLINING_EXTENSIONS */
   unsigned int context;
   unsigned int function_name;
-#endif /* NVIDIA_LINEMAP_INLINING_EXTENSIONS */
+/* End NVIDIA_LINEMAP_INLINING_EXTENSIONS */
 };
 
 static inline void
@@ -143,10 +143,10 @@ add_new_line (struct line_state *state, struct linelist *new_line)
   SET (epilogue_begin);
   SET (isa);
   SET (discriminator);
-#ifdef NVIDIA_LINEMAP_INLINING_EXTENSIONS
+/* Begin NVIDIA_LINEMAP_INLINING_EXTENSIONS */
   SET (context);
   SET (function_name);
-#endif /* NVIDIA_LINEMAP_INLINING_EXTENSIONS */
+/* End NVIDIA_LINEMAP_INLINING_EXTENSIONS */
 
 #undef SET
 
@@ -173,12 +173,12 @@ read_srclines (Dwarf *dbg,
 #define MAX_STACK_FILES (MAX_STACK_ALLOC / 4)
 #define MAX_STACK_DIRS  (MAX_STACK_ALLOC / 16)
 
-#ifdef NVIDIA_LINEMAP_INLINING_EXTENSIONS
+/* Begin NVIDIA_LINEMAP_INLINING_EXTENSIONS */
   /* reduce the MAX_STACK_LINES when using NVIDIA linemap inlining extensions, which
      increase the size of the line structure by two unsigned int */
 #undef MAX_STACK_LINES
 #define MAX_STACK_LINES (MAX_STACK_ALLOC / 2)
-#endif /* NVIDIA_LINEMAP_INLINING_EXTENSIONS */
+/* End NVIDIA_LINEMAP_INLINING_EXTENSIONS */
 
   /* Initial statement program state (except for stmt_list, see below).  */
   struct line_state state =
@@ -196,10 +196,10 @@ read_srclines (Dwarf *dbg,
       .epilogue_begin = false,
       .isa = 0,
       .discriminator = 0,
-#ifdef NVIDIA_LINEMAP_INLINING_EXTENSIONS
+/* Begin NVIDIA_LINEMAP_INLINING_EXTENSIONS */
       .context = 0,
       .function_name = 0
-#endif /* NVIDIA_LINEMAP_INLINING_EXTENSIONS */
+/* End NVIDIA_LINEMAP_INLINING_EXTENSIONS */
     };
 
   /* The dirs normally go on the stack, but if there are too many
@@ -667,13 +667,13 @@ read_srclines (Dwarf *dbg,
 	}
     }
 
-#ifdef NVIDIA_LINEMAP_INLINING_EXTENSIONS
+/* Begin NVIDIA_LINEMAP_INLINING_EXTENSIONS */
   unsigned int debug_str_offset __attribute__((unused)) = 0;
   if (unlikely (linep < header_start + header_length)) {
       /* CUBINs contain an unsigned 4-byte offset */
       debug_str_offset = read_4ubyte_unaligned_inc (dbg, linep);
   }
-#endif /* NVIDIA_LINEMAP_INLINING_EXTENSIONS */
+/* End NVIDIA_LINEMAP_INLINING_EXTENSIONS */
 
   /* Consistency check.  */
   if (unlikely (linep != header_start + header_length))
@@ -780,10 +780,10 @@ read_srclines (Dwarf *dbg,
 	      state.epilogue_begin = false;
 	      state.isa = 0;
 	      state.discriminator = 0;
-#ifdef NVIDIA_LINEMAP_INLINING_EXTENSIONS
+/* Begin NVIDIA_LINEMAP_INLINING_EXTENSIONS */
 	      state.context = 0;
 	      state.function_name = 0;
-#endif /* NVIDIA_LINEMAP_INLINING_EXTENSIONS */
+/* End NVIDIA_LINEMAP_INLINING_EXTENSIONS */
 	      break;
 
 	    case DW_LNE_set_address:
@@ -862,7 +862,7 @@ read_srclines (Dwarf *dbg,
 	      get_uleb128 (state.discriminator, linep, lineendp);
 	      break;
 
-#ifdef NVIDIA_LINEMAP_INLINING_EXTENSIONS
+/* Begin NVIDIA_LINEMAP_INLINING_EXTENSIONS */
 	    case DW_LNE_inlined_call:
 	      if (unlikely (linep >= lineendp))
 		goto invalid_data;
@@ -879,7 +879,7 @@ read_srclines (Dwarf *dbg,
 	      get_uleb128 (state.function_name, linep, lineendp);
 	      state.function_name += debug_str_offset;
 	      break;
-#endif /* NVIDIA_LINEMAP_INLINING_EXTENSIONS */
+/* End NVIDIA_LINEMAP_INLINING_EXTENSIONS */
 
 	    default:
 	      /* Unknown, ignore it.  */

@@ -703,7 +703,7 @@ extern int dwarf_linediscriminator (Dwarf_Line *line, unsigned int *discp)
 extern const char *dwarf_linesrc (Dwarf_Line *line,
 				  Dwarf_Word *mtime, Dwarf_Word *length);
 
-#ifdef NVIDIA_LINEMAP_INLINING_EXTENSIONS
+/* Begin NVIDIA_LINEMAP_INLINING_EXTENSIONS */
 /* NVIDIA extension: Return inline context in this record. A non-zero context
    value represents an inline context */
 extern int dwarf_linecontext (Dwarf_Line *line, unsigned int *contextp);
@@ -713,7 +713,7 @@ extern int dwarf_linecontext (Dwarf_Line *line, unsigned int *contextp);
    which contains a character string that specifies the name of an inlined
    function. */
 extern int dwarf_linefunctionname (Dwarf_Line *line, unsigned int *functionnamep);
-#endif /* NVIDIA_LINEMAP_INLINING_EXTENSIONS */
+/* End NVIDIA_LINEMAP_INLINING_EXTENSIONS */
 
 /* Return file information.  The returned string is NULL when
    an error occurred, or the file path.  The file path is either absolute

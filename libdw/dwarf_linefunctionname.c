@@ -33,7 +33,7 @@
 #include "libdwP.h"
 
 
-#ifdef NVIDIA_LINEMAP_INLINING_EXTENSIONS
+/* Begin NVIDIA_LINEMAP_INLINING_EXTENSIONS */
 int
 dwarf_linefunctionname (Dwarf_Line *line, unsigned int *functionnamep)
 {
@@ -44,4 +44,4 @@ dwarf_linefunctionname (Dwarf_Line *line, unsigned int *functionnamep)
 
   return 0;
 }
-#endif /* NVIDIA_LINEMAP_INLINING_EXTENSIONS */
+/* End NVIDIA_LINEMAP_INLINING_EXTENSIONS */
