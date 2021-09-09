@@ -1,7 +1,6 @@
-/* Version information about elfutils development libraries.
-   Copyright (C) 2008 Red Hat, Inc.
-
+/* Return function name in line.
    This file is part of elfutils.
+   Written by John Mellor-Crummey <johnmc@rice.edu>, 2021.
 
    This file is free software; you can redistribute it and/or modify
    it under the terms of either
@@ -27,16 +26,22 @@
    the GNU Lesser General Public License along with this program.  If
    not, see <http://www.gnu.org/licenses/>.  */
 
-#ifndef _ELFUTILS_VERSION_H
-#define _ELFUTILS_VERSION_H	1
+#ifdef HAVE_CONFIG_H
+# include <config.h>
+#endif
 
-#define _ELFUTILS_VERSION	@eu_version@
+#include "libdwP.h"
 
-#define _ELFUTILS_PREREQ(major, minor) \
-  (_ELFUTILS_VERSION >= ((major) * 1000 + (minor)))
 
 /* Begin NVIDIA_LINEMAP_INLINING_EXTENSIONS */
-#define NVIDIA_LINEMAP_INLINING_EXTENSIONS 1
-/* End NVIDIA_LINEMAP_INLINING_EXTENSIONS */
+int
+dwarf_linefunctionname (Dwarf_Line *line, unsigned int *functionnamep)
+{
+  if (line == NULL)
+    return -1;
 
-#endif	/* elfutils/version.h */
+  *functionnamep =  line->function_name;
+
+  return 0;
+}
+/* End NVIDIA_LINEMAP_INLINING_EXTENSIONS */
